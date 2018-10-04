@@ -1,6 +1,14 @@
+cargo-features = ["edition"]
+
 [package]
 name = "wfc"
 version = "0.1.0"
 authors = ["Michael Fairley <michaelfairley@gmail.com>"]
+edition = "2018"
 
 [dependencies]
+
+[dev-dependencies]
+tobj = "*"
+glium = "*"
+cgmath = "*"
