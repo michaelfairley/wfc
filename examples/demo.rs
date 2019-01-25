@@ -176,10 +176,10 @@ fn main() {
   let blank_left = [0, 2, 3];
 
   // top, right, bottom, left
-  let neighbors = vec![
-    //Straight
-    [street_bottom, blank_left, street_
-  ];
+  // let neighbors = vec![
+  //   //Straight
+  //   [street_bottom, blank_left, street_
+  // ];
 
   let size = 2;
 
@@ -199,6 +199,8 @@ fn main() {
   //   Cell(0, Rotation::None), Cell(0, Rotation::R90),
   //   Cell(0, Rotation::None), Cell(1, Rotation::R270),
   // ];
+
+  // let cells = [0, 1, 0, 5];
 
   let mut closed = false;
 

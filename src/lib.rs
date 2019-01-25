@@ -35,8 +35,35 @@ impl Wave {
     self.possibilities[index] = false;
   }
 
+  fn choices<'a>(&'a mut self, x: usize, y: usize) -> impl Iterator<Item=usize> + 'a {
+    (0..self.num_items).filter(|&c| self.get(x, y, c))
+  }
+
   fn num_possibilities(&mut self, x: usize, y: usize) -> usize {
     (0..self.num_items).filter(|&c| self.get(x, y, c)).count()
+  }
+
+  fn find_cell_with_fewest_choices(&self) -> ((usize, usize), Vec<usize>) {
+    let mut lowest = 0;
+    let mut lowest_i = (0, 0);
+
+    for x in 0..self.width {
+      for y in 0..self.height {
+        let n = self.num_possibilities(x, y);
+        if n == 0 { panic!("Optionless cell"); }
+
+        if lowest == 0 || (n != 1 && n < lowest) {
+          lowest = n;
+          lowest_i = (x, y);
+        }
+      }
+    }
+
+    (lowest_i, self.choices(lowest_i.0, lowest_i.1).collect())
+  }
+
+  fn find_cell_with_fewest_choices(&self, (x, y): (usize, usize), choice: usize) {
+    // THIS IS WHERE YOU LEFT OFF
   }
 }
 
@@ -62,19 +89,19 @@ pub fn generate(
       panic!("Ran out of chocies");
     }
 
-    let choice = rng.choose(choices);
+    let choice = rng.choose(&choices);
 
     wave.unset_all_but(next_to_resolve, choice);
 
-    let mut queue = VecDeque::new();
-    queue.push_front(next_to_resolve);
+  //   let mut queue = VecDeque::new();
+  //   queue.push_front(next_to_resolve);
 
-    while let Some(next) = queue.pop_front() {
-      let ann = acceptable_north_neighbors(next);
-      let changed = wave.unset_inverse(next_to_resolve + north, ann);
-      if change { add to queue }
-      // + other dirs
-    }
+  //   while let Some(next) = queue.pop_front() {
+  //     let ann = acceptable_north_neighbors(next);
+  //     let changed = wave.unset_inverse(next_to_resolve + north, ann);
+  //     if change { add to queue }
+  //     // + other dirs
+  //   }
 
   }
 
